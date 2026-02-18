@@ -1,7 +1,17 @@
 const SearchItem = () =>{
     return(
-        <div>
-            
-        </div>
+        <form className="searchForm" onSubmit={(e)=> e.preventDefault()}>
+            <label htmlFor="search">Search </label>
+            <input
+                id='search'
+                type='text'
+                role="searchbox"
+                placeholder="Search items"
+            />
+        </form>
     )
+
+    
 }
+
+export default SearchItem
