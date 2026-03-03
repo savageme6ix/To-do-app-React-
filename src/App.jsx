@@ -1,7 +1,7 @@
 import Header from './Header'
 import Footer from './footer'
 import Content from './content'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AddItem } from './AddItem';
 import SearchItem from './SearchItem';
 function App() {
@@ -41,11 +41,14 @@ function App() {
     }
   return(
      <div className="App">
-      <Header />
-      <SearchItem />
+      {<Header />}
+      <SearchItem search={search} setSearch={setSearch}/>
       <AddItem newItem={newItem} setNewItem={setNewItem} handleSubmit={handleSubmit}/>
-      <Content items={items} handleCheck={handleCheck} handleDelete={handleDelete} />
-      <Footer length ={items.length}/>
+      <Content items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
+      handleCheck={handleCheck} 
+      handleDelete={handleDelete} 
+      />
+      {<Footer length ={items.length}/>}
     </div>
   )
 
