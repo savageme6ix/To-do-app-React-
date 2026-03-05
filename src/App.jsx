@@ -12,8 +12,28 @@ function App() {
 
     const [newItem, setNewItem] = useState('');
     const [search, setSearch] = useState('');
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
+        const fetchItems = async () => {
+            try{
+                const res = await fetch(API_URL);
+                if (!res.ok) throw Error('Did not receive expected data')
+                const listItems = await res.json();
+                console.log(listItems)
+                setItems(listItems)
+                setError(null)
+            } catch (error){
+                console.log(error.message)
+                setError(error.message)
+            } finally{
+                setLoading(false)
+            }
+        }
+         setTimeout(()=>{
+            fetchItems();
+         },2000)
         
     },[])
     
@@ -45,10 +65,15 @@ function App() {
       {<Header />}
       <SearchItem search={search} setSearch={setSearch}/>
       <AddItem newItem={newItem} setNewItem={setNewItem} handleSubmit={handleSubmit}/>
-      <Content items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
-      handleCheck={handleCheck} 
-      handleDelete={handleDelete} 
-      />
+      <main>
+        {error && <p style={{color:"red"}}>{`Error: ${error} `}</p>}
+        {loading && <p style={{color: "gray"}}>{`Loading...`}</p>}
+        {!error && !loading &&
+        <Content items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
+        handleCheck={handleCheck} 
+        handleDelete={handleDelete} 
+        />}
+      </main>
       {<Footer length ={items.length}/>}
     </div>
   )
