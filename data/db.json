@@ -1,19 +1,20 @@
 {
   "items": [
     {
-      "id": 1,
+      "id": "1",
       "checked": false,
       "item": "Almonds, Unsalted, in the blue bag"
     },
     {
-      "id": 2,
+      "id": "2",
       "checked": false,
       "item": "Pizza"
     },
     {
-      "id": 3,
+      "id": "3",
       "checked": false,
       "item": "Almonds"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
